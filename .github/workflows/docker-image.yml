@@ -26,4 +26,4 @@ jobs:
     - name: Publish image to Docker Hub
       env:
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-      run: docker push fugalkev/actions-demo:1.0.0
+      run: docker push $DOCKER_USERNAME/actions-demo:1.0.0
