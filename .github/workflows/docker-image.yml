@@ -11,19 +11,17 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-
+    
+    env:
+      DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+      
     steps:
     - uses: actions/checkout@v3
     - name: Log in to Docker Hub
       env:
-        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
       run: docker login --username $DOCKER_USERNAME --password $DOCKER_PASSWORD
     - name: Build the Docker image
-      env:
-        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
       run: docker build . --file Dockerfile --tag $DOCKER_USERNAME/actions-demo:1.0.0
     - name: Publish image to Docker Hub
-      env:
-        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
       run: docker push $DOCKER_USERNAME/actions-demo:1.0.0
